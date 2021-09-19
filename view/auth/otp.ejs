@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+</head>
+<body>
+    <%- include('../includes/header') %>
+
+    <div class="container mt-4">
+        <div>
+            <div class="col-lg-6" style="margin: auto;">
+                <% if (successMsg.length>0 ) { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><%= successMsg %></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <% } %>
+                  <% if (errorMsg.length>0 ) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong><%= errorMsg %></strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      <% } %>
+                <form action="/verify/<%= id %>" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken  %>"> 
+                    <div class="mb-3">
+                      <label for="otp" class="form-label">OTP</label>
+                      <input type="text" class="form-control" id="otp" name="otp" value="<%= otp %>" >
+                      <% if (errors.otp) { %>
+                        <p style="color: red;"><%= errors.otp.msg %></p>
+                      <% } %>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script src="/js/bootstrap.js"></script>
+</html>

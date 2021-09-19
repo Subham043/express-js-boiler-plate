@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+</head>
+<body>
+    <%- include('../includes/header') %>
+
+    <div class="container mt-4">
+        <div>
+            <div class="col-lg-6" style="margin: auto;">
+                <% if (successMsg.length>0 ) { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><%= successMsg %></strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <% } %>
+                  <% if (errorMsg.length>0 ) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong><%= errorMsg %></strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      <% } %>
+                <form action="/register" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken  %>"> 
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="fname" name="fname" value="<%= fname %>" >
+                      <% if (errors.fname) { %>
+                        <p style="color: red;"><%= errors.fname.msg %></p>
+                      <% } %>
+                    </div>
+                    <div class="mb-3">
+                      <label for="phone" class="form-label">Phone</label>
+                      <input type="text" class="form-control" id="phone" name="phone" value="<%= phone %>" >
+                      <% if (errors.phone) { %>
+                        <p style="color: red;"><%= errors.phone.msg %></p>
+                      <% } %>
+                    </div>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="email" name="email" value="<%= email %>" aria-describedby="emailHelp">
+                      <% if (errors.email) { %>
+                        <p style="color: red;"><%= errors.email.msg %></p>
+                      <% } %>
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" value="<%= password %>">
+                      <% if (errors.password) { %>
+                        <p style="color: red;"><%= errors.password.msg %></p>
+                      <% } %>
+                    </div>
+                    <div class="mb-3">
+                      <label for="cpassword" class="form-label">Confirm Password</label>
+                      <input type="password" class="form-control" id="cpassword" name="cpassword" value="<%= cpassword %>">
+                      <% if (errors.cpassword) { %>
+                        <p style="color: red;"><%= errors.cpassword.msg %></p>
+                      <% } %>
+                    </div>
+                    <div class="mb-3 form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script src="/js/bootstrap.js"></script>
+</html>

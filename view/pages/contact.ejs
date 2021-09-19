@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+</head>
+
+<body>
+    <%- include('../includes/header') %>
+
+        <div class="container mt-4">
+            <div>
+                <% if (flashMsg.length>0 ) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Contacted Successfully!</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% } %>
+                <div class="col-lg-6" style="margin: auto">
+                    <% if (alert=='success' ) { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Contacted Successfully!</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <% }else if (alert=='fail' ) { %>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Oops! please try again</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <% } %>
+                                <form action="/contact" method="POST">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken  %>" />
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            value="<%= name %>" />
+                                        <% if (errors.name) { %>
+                                            <p style="color: red">
+                                                <%= errors.name.msg %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                            value="<%= phone %>" />
+                                        <% if (errors.phone) { %>
+                                            <p style="color: red">
+                                                <%= errors.phone.msg %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            value="<%= email %>" aria-describedby="emailHelp" />
+                                        <% if (errors.email) { %>
+                                            <p style="color: red">
+                                                <%= errors.email.msg %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Meesage</label>
+                                        <textarea name="message" id="message" class="form-control" cols="30" rows="10">
+<%= message %></textarea>
+                                        <% if (errors.message) { %>
+                                            <p style="color: red">
+                                                <%= errors.message.msg %>
+                                            </p>
+                                            <% } %>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                </div>
+            </div>
+        </div>
+</body>
+<script src="/js/bootstrap.js"></script>
+
+</html>
